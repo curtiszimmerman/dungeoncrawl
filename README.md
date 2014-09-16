@@ -1,4 +1,4 @@
 node-api-template
 =================
 
-This repository is an extensible, HTTP-based, RESTful, JSON API template. It optionally uses Redis for connection logging.
+DungeonCrawl is a simple HTML5 Canvas and JavaScript game.

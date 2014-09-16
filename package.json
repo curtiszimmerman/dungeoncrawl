@@ -1,7 +1,7 @@
 {
-  "name": "node-api-template",
+  "name": "dungeoncrawl",
   "version": "0.0.1",
-  "description": "HTTP-based RESTful JSON API template using only base modules",
+  "description": "JavaScript and HTML5 Canvas game",
   "main": "web.js",
   "devDependencies": {
     "mocha": "~1.20.1"
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/curtiszimmerman/node-api-template.git"
+    "url": "https://github.com/curtiszimmerman/dungeoncrawl.git"
   },
   "keywords": [
     "api",
@@ -23,7 +23,7 @@
   "author": "curtis zimmerman",
   "license": "GPLv3",
   "bugs": {
-    "url": "https://github.com/curtiszimmerman/node-api-template/issues"
+    "url": "https://github.com/curtiszimmerman/dungeoncrawl/issues"
   },
   "dependencies": {
     "chai": "~1.9.1",
