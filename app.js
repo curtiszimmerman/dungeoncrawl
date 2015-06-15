@@ -67,6 +67,9 @@ module.exports = exports = __api = (function() {
 				jpg: 'image/jpeg',
 				js: 'text/javascript',
 				png: 'image/png'
+			},
+			settings: {
+				cors: true
 			}
 		},
 		database: {
@@ -223,7 +226,9 @@ module.exports = exports = __api = (function() {
 							} else {
 								var client = $data.cache.clients[requestID];
 								var type = file.substr(file.lastIndexOf('.')+1);
-								client.res.writeHead(200, {'Content-Type': $data.content.mime[type]});
+								headers['Content-Type': $data.content.mime[type]];
+								if ($data.content.settings.cors) headers['Access-Control-Allow-Origin'] = '*';
+								client.res.writeHead(200, headers);
 								client.res.write(data);
 								client.res.end();
 								$func.cacheCleanup(requestID);
@@ -269,7 +274,9 @@ module.exports = exports = __api = (function() {
 			var client = $data.cache.clients[requestID];
 			response['message'] = message;
 			response['status'] = code;
-			client.res.writeHead(code, message, {'Content-Type': 'application/json'});
+			headers['Content-Type': 'application/json'];
+			if ($data.content.settings.cors) headers['Access-Control-Allow-Origin'] = '*';
+			client.res.writeHead(code, message, headers);
 			client.res.write(JSON.stringify(response));
 			client.res.end();
 			$func.cacheCleanup(requestID);
@@ -390,7 +397,7 @@ module.exports = exports = __api = (function() {
 		};
 	})();
 
-	var init = (function() {
+	(function init() {
 		var clientFileHandle = _pubsub.sub('/action/client/file', $func.sendFile);
 		var clientStatusHandle = _pubsub.sub('/action/client/status', $func.sendStatus);
 		var dataGetAllHandle = _pubsub.sub('/action/database/get/all', $func.data.getAll);
@@ -404,7 +411,7 @@ module.exports = exports = __api = (function() {
 		}, $data.cache.settings.cleanupInterval*1000);
 	})();
 
-	var api = (function() {
+	(function api() {
 		var server = http.createServer(function(req, res) {
 			var inbound = url.parse(req.url);
 			var pathname = inbound.pathname;
